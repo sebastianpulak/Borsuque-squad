@@ -1,24 +1,13 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View,  ActivityIndicator, AppRegistry, FlatList, Dimensions, StatusBar, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View,  ActivityIndicator, AppRegistry, FlatList, StatusBar, TouchableOpacity, Header} from 'react-native'
 import { SearchBar } from 'react-native-elements';
 import {Navigation} from 'react-native-navigation';
 
 type Props = {};
 export default class Main extends Component<Props> {
-  static options(passProps) {
-    return {
-      topBar: {
-        rightButtons: {
-          id: 'buttonOne',
-          text: 'LOGOUT'
-        }
-      }
-    };
-  }
 
     constructor() {
         super();
-        Navigation.events().bindComponent(this)
         this.state = {
           data: [],
           error: null,
@@ -26,10 +15,7 @@ export default class Main extends Component<Props> {
         };
         this.arrayholder = [];
       }
-
-      navigationButtonPressed({ id }) {
-        // will be called when "buttonOne" is clicked
-      }
+      
 
       goToScreen = (item) => {
         Navigation.showModal({
@@ -47,8 +33,6 @@ export default class Main extends Component<Props> {
                 passProps: {
                   data: item
                 },
-                onPress: this.onPressLogout,
-                rightText: 'Logout!'
               }
             }]
           }
@@ -57,6 +41,7 @@ export default class Main extends Component<Props> {
     
       componentDidMount = async() =>{
         this.callApi();
+        this.props.oonPress;
       }
 
       callApi = () => {
@@ -95,15 +80,19 @@ export default class Main extends Component<Props> {
       };
 
       renderHeader = () => {    
-        return (      
+        return ( 
+          <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#000000'}}>   
           <SearchBar        
-            placeholder="Type Here..."        
-            lightTheme        
+            placeholder="Type Here..."
             round        
             onChangeText={text => this.searchFilterFunction(text)}
             autoCorrect={false} 
-            value={this.state.value}           
-          />    
+            value={this.state.value}
+            containerStyle={{ width: '50%', backgroundColor: '#000000'}}           
+          />
+          <TouchableOpacity>
+            <Text style={{fontSize: 20, color: '#FFFFFF'}}>Logout</Text></TouchableOpacity>
+          </View> 
         );  
       };
       render() {
@@ -115,7 +104,7 @@ export default class Main extends Component<Props> {
           );
         }
         return (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>            
             {this.state.error &&
           <Text style={{ color: 'red' }}>
             {this.state.error}
@@ -129,7 +118,6 @@ export default class Main extends Component<Props> {
                   <Text style={styles.text}>{item.name}</Text>
                   </TouchableOpacity>
               )}
-              
               ListHeaderComponent={this.renderHeader}
             />
           </View>

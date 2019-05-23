@@ -9,8 +9,15 @@ export default class Loading extends Component<Props> {
         super();
       }
 
-      onPressLogout = () => {
-        
+      navigationButtonPressed({ buttonOne }) {
+        console.log("haha");
+      }
+      testhaha = () =>{
+        console.log("haha");
+      }
+
+      handleTitlePress(){
+        console.log("haha");
       }
 
       goToScreen = (screen) => {
@@ -19,11 +26,18 @@ export default class Loading extends Component<Props> {
             name: screen,
             options: {
               topBar: {
+                rightButtons: [
+                  {
+                    id: 'buttonOne',
+                    text: 'LOGOUT',
+                  },
+                ],
                 title: {
                   text: screen
                 },
-                onPress: this.onPressLogout,
-                rightText: 'Logout'
+                passProps: {
+                  oonPress: this.handleTitlePress
+               } 
               }
             },
           }
