@@ -9,6 +9,7 @@ export function Screens() {
   Navigation.registerComponent('Login', () => Login);
   Navigation.registerComponent('Loading', () => Loading);
   Navigation.registerComponent('Details', () => Details);
+  Navigation.registerComponent('SignUp', () => SignUp);
 }
 
 Navigation.events().registerAppLaunchedListener(() => {
