@@ -57,7 +57,6 @@ export default class Main extends Component<Props> {
     
       componentDidMount = async() =>{
         this.callApi();
-        this.props.oonPress;
       }
 
       signOut = async () => {
