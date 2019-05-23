@@ -1,9 +1,32 @@
-/**
- * @format
- */
+import { Navigation } from 'react-native-navigation';
+import Login from './src/Login';
+import Main from './src/Main';
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+export function Screens() {
+  Navigation.registerComponent('Main', () => Main);
+  Navigation.registerComponent('Login', () => Login);
+}
 
-AppRegistry.registerComponent(appName, () => App);
+Navigation.events().registerAppLaunchedListener(() => {
+    Navigation.setRoot({
+        root: {
+          stack: {
+            id: 'App',
+              children: [
+              {
+                component: {
+                  name: 'Login',
+                  options: {
+                    topBar: {
+                      title: {
+                        text: 'Borsuque Squad'
+                      },
+                    }
+                  },
+                }
+              }
+            ],
+          }
+        }
+      });
+    });
