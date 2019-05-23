@@ -3,6 +3,7 @@ import Login from './src/Login';
 import Main from './src/Main';
 import Loading from './src/Loading';
 import Details from './src/Details';
+import SignUp from './src/SignUp'
 
 export function Screens() {
   Navigation.registerComponent('Main', () => Main);
