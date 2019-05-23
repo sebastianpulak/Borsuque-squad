@@ -87,7 +87,7 @@ export default class Login extends Component<Props> {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={() => this.handleLogin()} />
+        <Button title="Login" onPress={this.handleLogin} />
         <Button
           title="Don't have an account? Sign Up"
           onPress={() => this.goToScreen('SignUp')}
