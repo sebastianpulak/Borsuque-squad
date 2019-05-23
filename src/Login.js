@@ -3,57 +3,45 @@ import { StyleSheet, Text, TextInput, View, Button, ActivityIndicator, AppRegist
 import firebase from 'react-native-firebase'
 import {Navigation} from 'react-native-navigation';
 
+
 type Props = {};
 export default class Login extends Component<Props> {
     constructor() {
         super();
       }
-  state = { email: '',
+  state = { 
+            email: '',
             password: '',
             errorMessage: null,
             isLoading: false
          }
 
+
          
-        goToScreen = (loginType) => {
-            Navigation.push(this.props.componentId, {
-              component: {
-                name: loginType,
-                options: {
-                  topBar: {
-                    title: {
-                      text: loginType
-                    }
-                  }
-                },
-                passProps: {
-                  loginType: loginType
-                }
-              }
-            });
-          }   
+        
          
   handleLogin = () => {
     const { email, password } = this.state
+
+    if(this.state.login === '' || this.state.password === '') {
+      this.setState({
+        incorrect: true,
+        errorMessage: 'Both login and password need to be filled.'
+      });
+      return;
+    }
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => this.goToScreen('Main'))
       .catch(error => this.setState({ errorMessage: error.message }))
-
       this.setState({
           isLoading: false
       })
   }
 
 
-
-  onClick = () => {
-      this.setState({
-          isLoading: true
-      })
-      this.handleLogin();
-  }
 
   render() {
       if(this.state.isLoading){
