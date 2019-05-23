@@ -1,16 +1,25 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View,  ActivityIndicator, AppRegistry, FlatList, Dimensions, StatusBar} from 'react-native'
-var width = Dimensions.get('window').width; //full width
-var height = Dimensions.get('window').height; //full height
-import { ListItem, SearchBar } from 'react-native-elements';
-
+import { StyleSheet, Text, View,  ActivityIndicator, AppRegistry, FlatList, Dimensions, StatusBar, TouchableOpacity} from 'react-native'
+import { SearchBar } from 'react-native-elements';
+import {Navigation} from 'react-native-navigation';
 
 type Props = {};
 export default class Main extends Component<Props> {
+  static options(passProps) {
+    return {
+      topBar: {
+        rightButtons: {
+          id: 'buttonOne',
+          text: 'LOGOUT'
+        }
+      }
+    };
+  }
+
     constructor() {
         super();
+        Navigation.events().bindComponent(this)
         this.state = {
-          loading: false,
           data: [],
           error: null,
           isLoading: true
@@ -18,12 +27,40 @@ export default class Main extends Component<Props> {
         this.arrayholder = [];
       }
 
-      componentDidMount(){
+      navigationButtonPressed({ id }) {
+        // will be called when "buttonOne" is clicked
+      }
+
+      goToScreen = (item) => {
+        Navigation.showModal({
+          stack: {
+            children: [{
+              component: {
+                name: 'Details',
+                options: {
+                  topBar: {
+                    title: {
+                      text: item.name
+                    }
+                  }
+                },
+                passProps: {
+                  data: item
+                },
+                onPress: this.onPressLogout,
+                rightText: 'Logout!'
+              }
+            }]
+          }
+        });
+      }
+    
+      componentDidMount = async() =>{
         this.callApi();
       }
 
       callApi = () => {
-        const url = 'https://swapi.co/api/people/?format=json';
+        const url = 'https://swapi.co/api/people/?format=json&page=1';
         this.setState({ loading: true });
     
         fetch(url)
@@ -56,19 +93,7 @@ export default class Main extends Component<Props> {
           data: newData,
         });
       };
-    
-      renderSeparator = () => {
-        return (
-          <View
-            style={{
-              height: 1,
-              width: '86%',
-              backgroundColor: '#CED0CE',
-              marginLeft: '14%',
-            }}
-          />
-        );
-      };
+
       renderHeader = () => {    
         return (      
           <SearchBar        
@@ -85,23 +110,26 @@ export default class Main extends Component<Props> {
         if (this.state.loading) {
           return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <ActivityIndicator />
+              <ActivityIndicator size="large"/>
             </View>
           );
         }
         return (
-          
           <View style={{ flex: 1 }}>
+            {this.state.error &&
+          <Text style={{ color: 'red' }}>
+            {this.state.error}
+          </Text>}
             <StatusBar hidden />
             <FlatList
               data={this.state.data}
+              keyExtractor = {item => item.name}
               renderItem={({ item }) => (
-                <ListItem
-                  title={`${item.name}`}
-                />
+                <TouchableOpacity style={styles.button} onPress={() => this.goToScreen(item)}>
+                  <Text style={styles.text}>{item.name}</Text>
+                  </TouchableOpacity>
               )}
-              keyExtractor={item => item.name}
-              ItemSeparatorComponent={this.renderSeparator}
+              
               ListHeaderComponent={this.renderHeader}
             />
           </View>
@@ -119,29 +147,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  textInput: {
-    height: 40,
-    width: '90%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 8
-  },
-  tile: {
-    width: width,
-    height: 100,
-    margin: 2,
-    justifyContent: 'center',
-    flexDirection: 'row',
+  button: {
+    backgroundColor: '#DDDDDD',
     alignItems: 'center',
-    borderRadius: 4,
-    borderWidth: 0.3,
-    borderColor: '#838c99',
+    margin: 7,
+    padding: 12,
+    borderRadius: 10
   },
-  rowOfTiles: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start'
-  },
+  text: {
+    fontSize: 17
+  }
 })
 
 AppRegistry.registerComponent('Main', () => Main);

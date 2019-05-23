@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, ActivityIndicator, StyleSheet, AppRegistry } from 'react-native'
+import { View, Text, ActivityIndicator, StyleSheet, AppRegistry, StatusBar } from 'react-native'
 import firebase from 'react-native-firebase'
 import {Navigation} from 'react-native-navigation';
 
@@ -7,6 +7,10 @@ type Props = {};
 export default class Loading extends Component<Props> {
     constructor() {
         super();
+      }
+
+      onPressLogout = () => {
+        
       }
 
       goToScreen = (screen) => {
@@ -17,16 +21,15 @@ export default class Loading extends Component<Props> {
               topBar: {
                 title: {
                   text: screen
-                }
+                },
+                onPress: this.onPressLogout,
+                rightText: 'Logout'
               }
             },
-            passProps: {
-              screen: screen,
-            }
           }
         });
       }
-      
+
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
           this.goToScreen(user ? 'Main' : 'Login')
@@ -36,7 +39,7 @@ export default class Loading extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Loading</Text>
+        <StatusBar hidden />
         <ActivityIndicator size="large" />
       </View>
     )
