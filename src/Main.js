@@ -81,17 +81,17 @@ export default class Main extends Component<Props> {
 
       renderHeader = () => {    
         return ( 
-          <View style={{flex: 1, flexDirection: 'row', backgroundColor: '#000000'}}>   
+          <View style={{flex: 1,justifyContent: 'center', alignItems: 'center' ,flexDirection: 'row', backgroundColor: '#000000'}}>   
           <SearchBar        
             placeholder="Type Here..."
             round        
             onChangeText={text => this.searchFilterFunction(text)}
             autoCorrect={false} 
             value={this.state.value}
-            containerStyle={{ width: '50%', backgroundColor: '#000000'}}           
+            containerStyle={{ width: '80%', backgroundColor: '#000000'}}           
           />
           <TouchableOpacity>
-            <Text style={{fontSize: 20, color: '#FFFFFF'}}>Logout</Text></TouchableOpacity>
+            <Text style={{fontSize: 20, color: '#DDDDDD'}}>Logout</Text></TouchableOpacity>
           </View> 
         );  
       };
@@ -104,7 +104,7 @@ export default class Main extends Component<Props> {
           );
         }
         return (
-          <View style={{ flex: 1 }}>            
+          <View style={{ flex: 1, backgroundColor: '#000000' }}>            
             {this.state.error &&
           <Text style={{ color: 'red' }}>
             {this.state.error}
@@ -136,14 +136,15 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   button: {
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#2D3035',
     alignItems: 'center',
     margin: 7,
     padding: 12,
     borderRadius: 10
   },
   text: {
-    fontSize: 17
+    fontSize: 17,
+    color: '#DDDDDD'
   }
 })
 

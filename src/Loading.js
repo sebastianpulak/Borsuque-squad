@@ -9,17 +9,6 @@ export default class Loading extends Component<Props> {
         super();
       }
 
-      navigationButtonPressed({ buttonOne }) {
-        console.log("haha");
-      }
-      testhaha = () =>{
-        console.log("haha");
-      }
-
-      handleTitlePress(){
-        console.log("haha");
-      }
-
       goToScreen = (screen) => {
         Navigation.push(this.props.componentId, {
           component: {
