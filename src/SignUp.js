@@ -15,6 +15,22 @@ export default class SignUp extends Component<Props> {
             errorMessage: null,
             isLoading: false
          }  
+
+
+         goToScreen = (screen) => {
+            Navigation.push(this.props.componentId, {
+              component: {
+                name: screen,
+                options: {
+                  topBar: {
+                    title: {
+                      text: screen
+                    },
+                  }
+                },
+              }
+            });
+          }
   handleLogin = () => {
     const { email, password } = this.state
 
@@ -29,7 +45,7 @@ export default class SignUp extends Component<Props> {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => this.goToScreen('Main'))
+      .then(() => this.goToScreen('Login'))
       .catch(error => this.setState({ errorMessage: error.message }))
       this.setState({
           isLoading: false
@@ -49,7 +65,7 @@ export default class SignUp extends Component<Props> {
       } else{
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
+        <Text>SignUp</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
@@ -69,10 +85,10 @@ export default class SignUp extends Component<Props> {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
+        <Button title="Sign Up" onPress={this.handleLogin} />
         <Button
-          title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
+          title="Already have an account? Log in"
+          onPress={() => this.goToScreen('Login')}
         />
       </View>
     )
