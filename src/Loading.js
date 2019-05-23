@@ -26,18 +26,9 @@ export default class Loading extends Component<Props> {
             name: screen,
             options: {
               topBar: {
-                rightButtons: [
-                  {
-                    id: 'buttonOne',
-                    text: 'LOGOUT',
-                  },
-                ],
                 title: {
                   text: screen
                 },
-                passProps: {
-                  oonPress: this.handleTitlePress
-               } 
               }
             },
           }
