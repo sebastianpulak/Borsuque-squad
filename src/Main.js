@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text, View,  ActivityIndicator, AppRegistry, FlatList, StatusBar, TouchableOpacity, Header} from 'react-native'
 import { SearchBar } from 'react-native-elements';
+import firebase from 'react-native-firebase'
 import {Navigation} from 'react-native-navigation';
 
 type Props = {};
@@ -38,11 +39,35 @@ export default class Main extends Component<Props> {
           }
         });
       }
+
+      goToScreen2 = (screen) => {
+        Navigation.push(this.props.componentId, {
+          component: {
+            name: screen,
+            options: {
+              topBar: {
+                title: {
+                  text: screen
+                },
+              }
+            },
+          }
+        });
+      }
     
       componentDidMount = async() =>{
         this.callApi();
         this.props.oonPress;
       }
+
+      signOut = async () => {
+        try {
+            await firebase.auth().signOut();
+            this.goToScreen2('Login')
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
       callApi = () => {
         const url = 'https://swapi.co/api/people/?format=json&page=1';
@@ -90,7 +115,7 @@ export default class Main extends Component<Props> {
             value={this.state.value}
             containerStyle={{ width: '80%', backgroundColor: '#000000'}}           
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress= {() => this.signOut()} >
             <Text style={{fontSize: 20, color: '#DDDDDD'}}>Logout</Text></TouchableOpacity>
           </View> 
         );  

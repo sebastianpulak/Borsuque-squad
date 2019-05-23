@@ -16,7 +16,20 @@ export default class Login extends Component<Props> {
             isLoading: false
          }
 
-
+         goToScreen = (screen) => {
+          Navigation.push(this.props.componentId, {
+            component: {
+              name: screen,
+              options: {
+                topBar: {
+                  title: {
+                    text: screen
+                  },
+                }
+              },
+            }
+          });
+        }
          
         
          
@@ -74,10 +87,10 @@ export default class Login extends Component<Props> {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
+        <Button title="Login" onPress={() => this.handleLogin()} />
         <Button
           title="Don't have an account? Sign Up"
-          onPress={() => this.props.navigation.navigate('SignUp')}
+          onPress={() => this.goToScreen('SignUp')}
         />
       </View>
     )
