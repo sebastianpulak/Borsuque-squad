@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "147818438535",
+    "firebase_url": "https://borsuque-squad-ecf0d.firebaseio.com",
+    "project_id": "borsuque-squad-ecf0d",
+    "storage_bucket": "borsuque-squad-ecf0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147818438535:android:892dcbeac96b1982",
+        "android_client_info": {
+          "package_name": "com.sebastianpulak.borsuquesquad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147818438535-hmienvvanqp6lbd5d55nbe1tl0mocmh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArw9H_sElpct0MBtIMU0GBrm2MDxuc4sU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147818438535-hmienvvanqp6lbd5d55nbe1tl0mocmh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
