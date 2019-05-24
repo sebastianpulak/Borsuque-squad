@@ -21,13 +21,7 @@ export default class SignUp extends Component<Props> {
             Navigation.push(this.props.componentId, {
               component: {
                 name: screen,
-                options: {
-                  topBar: {
-                    title: {
-                      text: screen
-                    },
-                  }
-                },
+                options:{ topBar: { visible: false, height: 0, } }
               }
             });
           }
@@ -44,7 +38,7 @@ export default class SignUp extends Component<Props> {
 
     firebase
       .auth()
-      .signInWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => this.goToScreen('Login'))
       .catch(error => this.setState({ errorMessage: error.message }))
       this.setState({

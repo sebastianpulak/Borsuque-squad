@@ -24,13 +24,7 @@ export default class Main extends Component<Props> {
             children: [{
               component: {
                 name: 'Details',
-                options: {
-                  topBar: {
-                    title: {
-                      text: item.name
-                    }
-                  }
-                },
+                options:{ topBar: { visible: false, height: 0, } },
                 passProps: {
                   data: item
                 },
@@ -44,13 +38,7 @@ export default class Main extends Component<Props> {
         Navigation.push(this.props.componentId, {
           component: {
             name: screen,
-            options: {
-              topBar: {
-                title: {
-                  text: screen
-                },
-              }
-            },
+            options:{ topBar: { visible: false, height: 0, } }
           }
         });
       }
