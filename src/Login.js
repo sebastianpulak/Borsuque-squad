@@ -20,13 +20,7 @@ export default class Login extends Component<Props> {
           Navigation.push(this.props.componentId, {
             component: {
               name: screen,
-              options: {
-                topBar: {
-                  title: {
-                    text: screen
-                  },
-                }
-              },
+              options:{ topBar: { visible: false, height: 0, } }
             }
           });
         }
