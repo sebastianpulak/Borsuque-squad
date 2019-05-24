@@ -16,7 +16,6 @@ export default class SignUp extends Component<Props> {
             isLoading: false
          }  
 
-
          goToScreen = (screen) => {
             Navigation.push(this.props.componentId, {
               component: {
@@ -25,10 +24,11 @@ export default class SignUp extends Component<Props> {
               }
             });
           }
+          
   handleLogin = () => {
     const { email, password } = this.state
 
-    if(this.state.login === '' || this.state.password === '') {
+    if(email === '' || password === '') {
       this.setState({
         incorrect: true,
         errorMessage: 'Both login and password need to be filled.'
@@ -38,7 +38,7 @@ export default class SignUp extends Component<Props> {
 
     firebase
       .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .createUserWithEmailAndPassword(email,password)
       .then(() => this.goToScreen('Login'))
       .catch(error => this.setState({ errorMessage: error.message }))
       this.setState({
